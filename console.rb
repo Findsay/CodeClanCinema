@@ -23,6 +23,8 @@ ticket1.save()
 ticket2 = Ticket.new({ 'customer_id' => customer1.id, 'film_id' => film2.id })
 ticket2.save()
 
+ticket2.buy(customer1, film2)
+
 # ticket1.film_id = film2.id
 # ticket1.update()
 

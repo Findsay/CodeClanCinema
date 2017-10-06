@@ -48,5 +48,10 @@ class Ticket
     SqlRunner.run(sql, values)
   end
 
+  def buy(customer, film)
+    customer.funds -= film.price
+    customer.update
+  end
+
 
 end
