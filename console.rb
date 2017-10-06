@@ -28,6 +28,9 @@ ticket2.save()
 screening1 = Screening.new({ 'film_id' => film1.id, 'film_time' => "13:30"})
 screening1.save()
 
+screening2 = Screening.new({ 'film_id' => film1.id, 'film_time' => "16:30"})
+screening2.save()
+
 # screening1.film_time = "15:00"
 # screening1.update()
 

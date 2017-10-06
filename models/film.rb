@@ -62,4 +62,11 @@ class Film
     customer_count = result['count'].to_i()
   end
 
+  def times()
+  sql = "SELECT * FROM screenings WHERE film_id = $1"
+  values = [@id]
+  screenings = SqlRunner.run(sql, values)
+  return screenings.map { |screening| Screening.new(screening).film_time() }
+  end
+
 end
