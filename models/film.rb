@@ -1,4 +1,5 @@
 require_relative '../db/sql_runner'
+require_relative 'screening'
 
 class Film
 
@@ -68,5 +69,17 @@ class Film
   screenings = SqlRunner.run(sql, values)
   return screenings.map { |screening| Screening.new(screening).film_time() }
   end
+
+  def popular_time()
+    sql = "SELECT screening_id FROM tickets WHERE film_id = $1 GROUP BY screening_id ORDER BY COUNT(*) DESC LIMIT 1;"
+    values = [@id]
+    result = SqlRunner.run(sql, values).first
+    screening_id = result['screening_id'].to_i()
+    sql = "SELECT * FROM screenings WHERE id = $1"
+    values = [screening_id]
+    screening = SqlRunner.run(sql, values)
+    return screening.map { |screening| Screening.new(screening).film_time() }
+  end
+
 
 end

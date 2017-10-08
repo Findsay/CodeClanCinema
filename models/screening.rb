@@ -4,18 +4,20 @@ require_relative 'film'
 
 class Screening
 
-  attr_accessor :film_id, :film_time
+  attr_accessor :film_id, :film_time, :no_tickets
+  attr_reader :id
 
   def initialize(options)
     @id = options['id'].to_i() if options['id']
     @film_id = options['film_id'].to_i()
     @film_time = options['film_time']
+    @no_tickets = options['no_tickets'].to_i()
   end
 
   def save()
-    sql = "INSERT INTO screenings (film_id, film_time) VALUES ($1, $2)
+    sql = "INSERT INTO screenings (film_id, film_time, no_tickets) VALUES ($1, $2, $3)
     RETURNING id;"
-    values = [@film_id, @film_time]
+    values = [@film_id, @film_time, @no_tickets]
     screening = SqlRunner.run(sql, values).first
     @id = screening['id'].to_i()
   end
@@ -27,9 +29,9 @@ class Screening
   end
 
   def update()
-    sql = "UPDATE screenings SET (film_id, film_time) = ($1, $2)
-    WHERE id = $3;"
-    values = [@film_id, @film_time, @id]
+    sql = "UPDATE screenings SET (film_id, film_time, no_tickets) = ($1, $2, $3)
+    WHERE id = $4;"
+    values = [@film_id, @film_time, @no_tickets, @id]
     SqlRunner.run(sql, values)
   end
 
@@ -45,4 +47,5 @@ class Screening
     values = []
     SqlRunner.run(sql, values)
   end
+
 end

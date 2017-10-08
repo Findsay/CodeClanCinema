@@ -19,17 +19,25 @@ film1.save()
 film2 = Film.new({ 'title' => "It", 'price' => 7})
 film2.save()
 
-ticket1 = Ticket.new({ 'customer_id' => customer1.id, 'film_id' => film1.id })
-ticket1.save()
-
-ticket2 = Ticket.new({ 'customer_id' => customer1.id, 'film_id' => film2.id })
-ticket2.save()
-
-screening1 = Screening.new({ 'film_id' => film1.id, 'film_time' => "13:30"})
+screening1 = Screening.new({ 'film_id' => film1.id, 'film_time' => "13:30", 'no_tickets' => 1})
 screening1.save()
 
-screening2 = Screening.new({ 'film_id' => film1.id, 'film_time' => "16:30"})
+screening2 = Screening.new({ 'film_id' => film1.id, 'film_time' => "16:30", 'no_tickets' => 2})
 screening2.save()
+
+screening3 = Screening.new({ 'film_id' => film2.id, 'film_time' => "11:30", 'no_tickets' => 3})
+screening3.save()
+
+ticket1 = Ticket.new({ 'customer_id' => customer1.id, 'film_id' => film1.id, 'screening_id' => screening1.id })
+ticket1.save()
+
+ticket2 = Ticket.new({ 'customer_id' => customer1.id, 'film_id' => film2.id, 'screening_id'=> screening3.id })
+ticket2.save()
+
+ticket3 = Ticket.new({ 'customer_id' => customer1.id, 'film_id' => film2.id, 'screening_id'=> screening3.id })
+ticket3.save()
+
+
 
 # screening1.film_time = "15:00"
 # screening1.update()
